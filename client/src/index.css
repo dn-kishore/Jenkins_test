@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Clean, Readable Color System */
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3%;
+
+    --primary: 217 89% 61%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 142 69% 58%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 20% 98%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 45 100% 51%;
+    --accent-foreground: 0 0% 3%;
+
+    --destructive: 4 90% 58%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 93%;
+    --input: 0 0% 93%;
+    --ring: 217 89% 61%;
+
+    --radius: 0.75rem;
+
+    /* Vibe Colors */
+    --vibe-chill: 142 71% 45%;
+    --vibe-academic: 211 100% 50%;
+    --vibe-party: 14 100% 57%;
+    --vibe-chill-bg: 142 71% 96%;
+    --vibe-academic-bg: 211 100% 96%;
+    --vibe-party-bg: 14 100% 96%;
+
+    --warning: 38 92% 50%;
+    --warning-bg: 38 92% 96%;
+
+    --success: 142 71% 45%;
+    --success-bg: 142 71% 96%;
+
+    /* Premium Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+    --shadow: 0 2px 8px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.02);
+    --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.02);
+    --shadow-lg: 0 10px 24px -4px rgb(0 0 0 / 0.06), 0 4px 8px -4px rgb(0 0 0 / 0.03);
+    --shadow-xl: 0 20px 40px -8px rgb(0 0 0 / 0.08), 0 8px 16px -6px rgb(0 0 0 / 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+  }
+
+  .dark {
+    --background: 0 0% 9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+    --primary: 221 83% 60%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 221 83% 60%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
+    --vibe-chill-bg: 142 71% 12%;
+    --vibe-academic-bg: 211 100% 12%;
+    --vibe-party-bg: 14 100% 12%;
+    --warning-bg: 38 92% 12%;
+    --success-bg: 142 71% 12%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    @apply bg-[#F8FAFC] text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .translate-z-100 {
+    transform: translateZ(100px);
+  }
+
+  .translate-z-120 {
+    transform: translateZ(120px);
+  }
+
+  .translate-z-150 {
+    transform: translateZ(150px);
+  }
+
+  .translate-z-170 {
+    transform: translateZ(170px);
+  }
+
+  /* Custom Animations from Original */
+  @keyframes quote-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-quote-scroll {
+    animation: quote-scroll 30s linear infinite;
+  }
+}
