@@ -7,10 +7,16 @@ pipeline {
 
     stages {
 
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Install Frontend') {
             steps {
                 dir('client') {
-                    sh 'npm install'
+                    sh 'npm ci'
                 }
             }
         }
@@ -25,13 +31,16 @@ pipeline {
 
         stage('Deploy Firebase') {
             when {
-                branch 'master'
+                allOf {
+                    branch 'master'
+                    not { changeRequest() }
+                }
             }
 
             steps {
                 dir('client') {
                     sh '''
-                    firebase deploy \
+                    npx firebase deploy \
                     --only hosting \
                     --token $FIREBASE_TOKEN
                     '''
