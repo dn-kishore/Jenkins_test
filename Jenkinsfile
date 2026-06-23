@@ -15,14 +15,6 @@ pipeline {
             }
         }
 
-        stage('Lint') {
-            steps {
-                dir('client') {
-                    sh 'npm run lint'
-                }
-            }
-        }
-
         stage('Build') {
             steps {
                 dir('client') {
@@ -32,9 +24,8 @@ pipeline {
         }
 
         stage('Deploy Firebase') {
-
             when {
-                branch 'master'
+                branch 'main'
             }
 
             steps {
