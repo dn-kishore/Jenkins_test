@@ -25,7 +25,7 @@ pipeline {
 
         stage('Deploy Firebase') {
             when {
-                branch 'main'
+                branch 'master'
             }
 
             steps {
