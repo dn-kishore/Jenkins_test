@@ -7,16 +7,18 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Install Dependencies') {
+        stage('Install Frontend') {
             steps {
                 dir('client') {
                     sh 'npm install'
+                }
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                dir('client') {
+                    sh 'npm run lint'
                 }
             }
         }
@@ -29,7 +31,12 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy Firebase') {
+
+            when {
+                branch 'master'
+            }
+
             steps {
                 dir('client') {
                     sh '''
