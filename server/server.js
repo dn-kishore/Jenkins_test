@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 const path = require('path');
 const fs = require('fs');
 const { connectDB } = require('./config/db');
-const { onRequest } = require('firebase-functions/v2/https');
 
 // Load environment variables
 dotenv.config();
@@ -28,16 +27,6 @@ if (!fs.existsSync(uploadsDir)) {
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
-// Middleware to ensure DB connection in serverless environment
-app.use(async (req, res, next) => {
-    try {
-        await connectDB();
-    } catch (err) {
-        console.error('Database connection error in middleware:', err);
-    }
-    next();
-});
 
 // Serve static files from uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -69,18 +58,13 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Export API as Firebase Cloud Function
-exports.api = onRequest({ cors: true, maxInstances: 10 }, app);
-
-// Connect to DB and start server locally
-if (!process.env.FUNCTION_SIGNATURE_TYPE && !process.env.FIREBASE_CONFIG) {
-    connectDB().then(() => {
-        app.listen(PORT, () => {
-            console.log(`DormDen Server running on port ${PORT}`);
-            console.log(`API available at http://localhost:${PORT}`);
-        });
-    }).catch(err => {
-        console.error('Failed to connect to database:', err);
-        process.exit(1);
+// Connect to DB and start server
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`DormDen Server running on port ${PORT}`);
+        console.log(`API available at http://localhost:${PORT}`);
     });
-}
+}).catch(err => {
+    console.error('Failed to connect to database:', err);
+    process.exit(1);
+});
