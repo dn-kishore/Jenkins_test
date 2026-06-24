@@ -27,7 +27,7 @@ export const RoommateCompatibility = ({ roommates }: RoommateCompatibilityProps)
     setTimeout(() => {
       const lowerDesc = description.toLowerCase();
       let score = 50;
-      let reasons: string[] = [];
+      const reasons: string[] = [];
 
       // Simple keyword matching for demo
       if (lowerDesc.includes('early') || lowerDesc.includes('morning')) {

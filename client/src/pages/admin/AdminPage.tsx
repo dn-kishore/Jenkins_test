@@ -15,7 +15,7 @@ import {
   Wifi, Clock, ChefHat, Car, Dumbbell, Zap, ShieldCheck, BookOpen, Coffee, Tv, Wind 
 } from 'lucide-react';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 const amenityIconMap: Record<string, React.ElementType> = {
   WiFi: Wifi,
@@ -349,7 +349,7 @@ const AdminPage = () => {
     setRoomTypes(roomTypes.filter((_, i) => i !== index));
   };
 
-  const updateRoomType = (index: number, field: keyof RoomType, value: any) => {
+  const updateRoomType = <K extends keyof RoomType>(index: number, field: K, value: RoomType[K]) => {
     const updated = [...roomTypes];
     updated[index] = { ...updated[index], [field]: value };
     setRoomTypes(updated);
@@ -641,7 +641,7 @@ const AdminPage = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="hostelType" className="text-slate-700 dark:text-slate-300 font-medium">Hostel Type *</Label>
-                  <Select value={hostelType} onValueChange={(v: any) => setHostelType(v)}>
+                  <Select value={hostelType} onValueChange={(v: 'boys' | 'girls' | 'coed') => setHostelType(v)}>
                     <SelectTrigger className="focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 focus-visible:ring-offset-1 border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500/50 focus-visible:border-indigo-500 transition-all duration-300 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-xl">
                       <SelectValue />
                     </SelectTrigger>
@@ -657,7 +657,7 @@ const AdminPage = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="vibe" className="text-slate-700 dark:text-slate-300 font-medium">Vibe Type *</Label>
-                  <Select value={vibe} onValueChange={(v: any) => setVibe(v)}>
+                  <Select value={vibe} onValueChange={(v: 'chill' | 'academic' | 'party') => setVibe(v)}>
                     <SelectTrigger className="focus-visible:ring-indigo-500 dark:focus-visible:ring-indigo-400 focus-visible:ring-offset-1 border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500/50 focus-visible:border-indigo-500 transition-all duration-300 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-xl">
                       <SelectValue />
                     </SelectTrigger>

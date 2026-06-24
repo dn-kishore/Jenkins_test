@@ -94,7 +94,7 @@ export const LiquidBackground = () => {
       new MetaBall(width * 0.5, height * 0.7, 220, { r: 251, g: 188, b: 5 }), // Google Yellow
     ];
 
-    let startTime = Date.now();
+    const startTime = Date.now();
     let animationFrameId: number;
     let lastFrameTime = startTime;
     const targetFPS = 30; // Reduce FPS for better performance

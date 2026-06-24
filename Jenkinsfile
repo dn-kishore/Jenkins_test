@@ -6,45 +6,35 @@ pipeline {
     }
 
     stages {
-
-        stage('Checkout') {
+        stage('Install Dependencies') {
             steps {
-                checkout scm
-            }
-        }
-
-        stage('Install Frontend') {
-            steps {
+                echo 'Installing client dependencies...'
                 dir('client') {
-                    sh 'npm ci'
+                    sh 'npm install'
+                }
+                echo 'Installing server dependencies...'
+                dir('server') {
+                    sh 'npm install'
                 }
             }
         }
 
-        stage('Build') {
+        stage('Build Client') {
             steps {
+                echo 'Building client for production...'
                 dir('client') {
-                    sh 'npm run build'
+                    sh 'VITE_API_URL=/api npm run build'
                 }
             }
         }
 
-        stage('Deploy Firebase') {
+        stage('Deploy to Firebase') {
             when {
-                allOf {
-                    branch 'master'
-                    not { changeRequest() }
-                }
+                branch 'master'
             }
-
             steps {
-                dir('client') {
-                    sh '''
-                    npx firebase deploy \
-                    --only hosting \
-                    --token $FIREBASE_TOKEN
-                    '''
-                }
+                echo 'Deploying hosting and functions to Firebase...'
+                sh 'firebase deploy --only hosting,functions --token $FIREBASE_TOKEN'
             }
         }
     }

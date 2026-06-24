@@ -8,7 +8,9 @@ import {
   RefreshCw, Sparkles, MapPin, Brain, Trash2, AlertTriangle, Eye 
 } from 'lucide-react';
 
-const API_URL = 'http://localhost:3001/api';
+import { type Rule } from '@/data/mockData';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 interface Listing {
   _id: string;
@@ -19,7 +21,7 @@ interface Listing {
   rent: number;
   vibe: string;
   image: string;
-  rules?: any[];
+  rules?: Rule[];
 }
 
 const ManageListings = ({ hideNavbar = false }: { hideNavbar?: boolean }) => {
@@ -448,7 +450,7 @@ const ManageListings = ({ hideNavbar = false }: { hideNavbar?: boolean }) => {
             <div className="p-6 overflow-y-auto max-h-[55vh] space-y-4">
               {selectedListing.rules && selectedListing.rules.length > 0 ? (
                 <div className="grid gap-4">
-                  {selectedListing.rules.map((rule: any, index: number) => (
+                  {selectedListing.rules.map((rule: Rule, index: number) => (
                     <div key={index} className="bg-white/40 dark:bg-slate-900/40 rounded-2xl p-5 border border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-900 transition-colors shadow-sm">
                       <div className="flex items-start justify-between gap-4 mb-2">
                         <h3 className="font-bold text-slate-800 dark:text-slate-205 text-lg">

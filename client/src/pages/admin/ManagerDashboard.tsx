@@ -29,7 +29,7 @@ import {
   Send
 } from 'lucide-react';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 interface Complaint {
   _id: string;
@@ -79,6 +79,7 @@ const ManagerDashboard = ({ hideNavbar = false }: { hideNavbar?: boolean }) => {
   useEffect(() => {
     fetchComplaints();
     fetchStats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, statusFilter, priorityFilter, categoryFilter]);
 
   const fetchComplaints = async () => {

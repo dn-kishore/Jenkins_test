@@ -29,7 +29,7 @@ import {
 import { Listing, VibeType } from '@/data/mockData';
 import { cn } from '@/lib/utils';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 const amenityIcons: Record<string, React.ElementType> = {
   WiFi: Wifi,

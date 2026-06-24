@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { MessageCircle, X, Send, Bot, Loader2, Sparkles } from 'lucide-react';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 interface Message {
   id: string;
@@ -90,7 +90,7 @@ export const WardenBot = ({ propertyId: propId, propertyName }: WardenBotProps) 
         },
       ]);
     }
-  }, [isOpen, propertyName, aiEnabled]);
+  }, [isOpen, propertyName, aiEnabled, messages.length]);
 
   const handleSend = async () => {
     if (!input.trim() || loading) return;

@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Search, X, Building2, Loader2 } from 'lucide-react';
 import { Listing } from '@/data/mockData';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
@@ -54,6 +54,7 @@ const SearchPage = () => {
     if (queryFromUrl !== searchQuery) {
       setSearchQuery(queryFromUrl);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   // Fetch listings from API
@@ -65,9 +66,9 @@ const SearchPage = () => {
         const data = await res.json();
         if (data.success) {
           // Map _id to id for compatibility
-          const mappedListings = data.data.map((l: any) => ({
+          const mappedListings = data.data.map((l: Omit<Listing, 'id'> & { _id?: string; id?: string }): Listing => ({
             ...l,
-            id: l._id || l.id,
+            id: l._id || l.id || '',
           }));
           setListings(mappedListings);
         } else {

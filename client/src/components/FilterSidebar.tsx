@@ -7,7 +7,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { 
   Clock, Users, PawPrint, ChefHat, Volume2, PartyPopper, X, Filter, 
   Sparkles, Building2, MapPin, Utensils, Shield, Wifi, Car, Dumbbell,
-  Camera, Star, Home, Calendar, UserCheck, Coffee, Moon, Sun
+  Camera, Star, Home, Calendar, UserCheck, Coffee, Moon, Sun,
+  type LucideIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -51,7 +52,7 @@ export const FilterSidebar = ({ filters, onFilterChange }: FilterSidebarProps) =
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
-  const updateFilter = (key: keyof AdvancedFilters, value: any) => {
+  const updateFilter = <K extends keyof AdvancedFilters>(key: K, value: AdvancedFilters[K]) => {
     onFilterChange({ ...filters, [key]: value });
   };
 
@@ -116,7 +117,7 @@ export const FilterSidebar = ({ filters, onFilterChange }: FilterSidebarProps) =
 
   const FilterSection = ({ title, icon: Icon, children, sectionKey }: {
     title: string;
-    icon: any;
+    icon: LucideIcon;
     children: React.ReactNode;
     sectionKey: string;
   }) => (
